@@ -3,16 +3,17 @@ EE 475 Lab 1
 Michael Von Hippel
 State Machine for reading and writing SRAM using counter
 */
-module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar):
+module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar);
 	input read, write, clk, reset;
 	output latch, dataEnable, csBar, oeBar, weBar;
 	// State within read/write cycle
 	reg [1:0] currState;
+	reg [1:0] readState;
 	always @(posedge clk)
 	begin
 		if (reset) begin
 			// Set to initial state, neither reading nor writing
-			currentState <= 0;
+			currState <= 0;
 			// Do not yet latch a value yet
 			latch <= 0;
 			// Do not select chip
@@ -24,15 +25,7 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar):
 			// Do not enable data input
 			dataEnable <= 0; 
 		end
-		else if (read & ~write) begin
-			// Read data
-			readState <= 1;
-		end
-		else if (write & ~read) begin
-			// Set to write
-			readState <= 2;
-		end
-			case(readState) begin
+			case(readState)
 				// Idle
 				0: begin
 					if (read & ~write) begin
@@ -119,7 +112,7 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar):
 					// Set to Idle
 					readState <= 0;
 					// Set to initial state, neither reading nor writing
-					currentState <= 2b'0
+					currState <= 0;
 					// Do not yet latch a value yet
 					latch <= 0;
 					// Do not select chip
