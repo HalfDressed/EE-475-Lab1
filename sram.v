@@ -77,6 +77,7 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar);
 					2: begin
 						// Enable output
 						oeBar <= 0;
+						dataEnable <= 1;
 						currState <= 0;
 					end 
 					default: begin
@@ -96,8 +97,8 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar);
 						latch <= 0;
 						// Disable write
 						weBar <= 1;
-						// set data as output
-						dataEnable <= 1;
+						// set data as input
+						dataEnable <= 0;
 						currState <= 1;
 					end
 					1: begin
@@ -131,7 +132,7 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar);
 				oeBar <= 1;
 				// Do not enable write
 				weBar <= 1;
-				// Do not enable data input
+				// Do not enable output
 				dataEnable <= 0; 
 			end
 		endcase	
