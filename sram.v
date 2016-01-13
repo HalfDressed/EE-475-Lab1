@@ -29,6 +29,16 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar);
 		case(readState)
 			// Idle
 			0: begin
+				// Do not yet latch a value yet
+				latch <= 0;
+				// Do not select chip
+				csBar <= 1;
+				// Do not output
+				oeBar <= 1;
+				// Do not enable write
+				weBar <= 1;
+				// Do not enable data input
+				dataEnable <= 0;
 				if (read & ~write) begin
 					// Set to read
 					readState <= 1;

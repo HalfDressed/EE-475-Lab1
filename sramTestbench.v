@@ -30,36 +30,40 @@ module sramTestbench();
 		write <= 0;
 		#(Delay * 2);
 		reset <= 0;
+		#(Delay * 2);
 
 		// Read stuff
-		#(Delay * 8);		
+		#(Delay * 4);		
 
 		reset <= 1;
 		read <= 0;
 		write <= 1;
 		#(Delay * 2) 
 		reset <= 0;
+		#(Delay * 2);
 
 		// Write stuff
-		#(Delay * 8);
+		#(Delay * 4);
 
 		reset <= 1;
 		read <= 0;
 		write <= 0;
 		#(Delay * 2); 
 		reset <= 0;
+		#(Delay * 2);
 
 		// Should idle...
-		#(Delay * 8);		
+		#(Delay * 4);		
 
 		reset <= 1;
 		read <= 1;
 		write <= 1;
 		#(Delay * 2);
 		reset <= 0;
+		#(Delay * 2);
 
 		// Should still idle
-		#(Delay * 8)
+		#(Delay * 4)
 
 		#(Delay * 2) 
 
