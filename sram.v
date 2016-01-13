@@ -13,6 +13,8 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar);
 		if (reset) begin
 			// Set to initial state, neither reading nor writing
 			currState <= 0;
+			// Set to idle state
+			readState <= 0;
 			// Do not yet latch a value yet
 			latch <= 0;
 			// Do not select chip
@@ -30,10 +32,12 @@ module SRAM(read, write, clk, reset, latch, dataEnable, csBar, oeBar, weBar);
 				if (read & ~write) begin
 					// Set to read
 					readState <= 1;
+					currState <= 0;
 				end
 				else if (write & ~read) begin
 					// Set to write
 					readState <= 2;
+					currState <= 0;
 				end
 			end
 			// Read

@@ -24,46 +24,42 @@ module sramTestbench();
 	
 	// Run through instructions to test that each function works
 	initial begin
-		clk = 0;
+		clk = 1;
 		reset <= 1;
-		#(Delay * 2)
+		read <= 1;
+		write <= 0;
+		#(Delay * 2);
 		reset <= 0;
-		#(Delay * 2) 
 
 		// Read stuff
-		read <= 1;
-		write <= 0;
-		#(Delay * 10)		
+		#(Delay * 8);		
 
 		reset <= 1;
+		read <= 0;
+		write <= 1;
 		#(Delay * 2) 
 		reset <= 0;
-		#(Delay * 2) 
 
 		// Write stuff
-		read <= 0;
-		write <= 1;
-		#(Delay * 10)
+		#(Delay * 8);
 
 		reset <= 1;
-		#(Delay * 2) 
-		reset <= 0;
-		#(Delay * 2) 
-
-		// Should idle...
 		read <= 0;
 		write <= 0;
-		#(Delay * 10)		
+		#(Delay * 2); 
+		reset <= 0;
+
+		// Should idle...
+		#(Delay * 8);		
 
 		reset <= 1;
-		#(Delay * 2) 
-		reset <= 0;
-		#(Delay * 2) 
-
-		// Should still idle
 		read <= 1;
 		write <= 1;
-		#(Delay * 10)
+		#(Delay * 2);
+		reset <= 0;
+
+		// Should still idle
+		#(Delay * 8)
 
 		#(Delay * 2) 
 
