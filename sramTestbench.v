@@ -4,7 +4,7 @@ SRAM testbench
 tests signals coming from controller
 */
 
-module sramTestbench():
+module sramTestbench();
 	reg read, write, clk, reset;
 	wire latch, dataEnable, csBar, oeBar, weBar;
 
